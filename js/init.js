@@ -1,5 +1,5 @@
 let h5game_name = "";
-let screen_horizontal = false; /* Manual screen orientation */
+let screen_horizontal = false;
 let url_params = location.search;
 if (url_params.indexOf("?") != -1) {
 	let str = url_params.substr(1);
@@ -38,19 +38,19 @@ if (screen_horizontal) {
 }
 
 if (pages != "") {
-	let game_page = parent.document.getElementById("game_page");
 	let onloadEvent = () => {
-		parent.document.getElementById("loading_img").style.animationPlayState = "paused";
-		parent.document.getElementById("loading_content").style.display = "none";
+		let content_page = parent.document.getElementById("content_page");
+		let game_page = content_page.appendChild(document.createElement('iframe'));
+
+		game_page.style.cssText = "width: 100%;height: 100%;background-color: white;";
+		game_page.id = "game_page";
+		game_page.allow = "autoplay";
+		game_page.frameBorder = "no";
+		game_page.src = pages;
 	}
-	if (game_page.attachEvent) {
-		game_page.attachEvent("onload", () => {
-			onloadEvent();
-		});
-	} else {
-		game_page.onload = () => {
-			onloadEvent();
-		};
-	}
-	game_page.src = pages;
+
+	if (window.addEventListener) window.addEventListener("load", onloadEvent, false);
+	else if (window.attachEvent) window.attachEvent("onload", onloadEvent);
+	else window.onload = onloadEvent;
+
 }

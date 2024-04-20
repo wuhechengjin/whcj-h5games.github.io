@@ -39,6 +39,15 @@ if (screen_horizontal) {
 
 if (pages != "") {
 	let onloadEvent = () => {
+		window.addEventListener('message', (event) => {
+			if (event.origin !== pages || !event.data.eventName) return;
+			switch (event.data.eventName) {
+				case 'closeLoading':
+					closeLoadingMask();
+					break;
+			}
+		});
+
 		let content_page = parent.document.getElementById("content_page");
 		let game_page = content_page.appendChild(document.createElement('iframe'));
 

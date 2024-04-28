@@ -17,6 +17,11 @@ switch (h5game_name) {
 	case "my-territory-war":
 		pages = "https://whcj-h5collection-1.pages.dev";
 		screen_horizontal = true;
+		//pages = "game/index.html";
+		break;
+
+	case "gourmet-together":
+		pages = "https://whcj-h5collection-2.pages.dev";
 		break;
 
 	default:

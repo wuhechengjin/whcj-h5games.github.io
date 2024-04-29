@@ -44,17 +44,31 @@ if (screen_horizontal) {
 
 if (pages != "") {
 	let onloadEvent = () => {
-		window.addEventListener('message', (event) => {
+		/* window.addEventListener('message', (event) => {
 			if (pages.indexOf(event.origin) == -1 || !event.data.eventName) return;
 			switch (event.data.eventName) {
 				case 'closeLoading':
 					closeLoadingMask();
 					break;
 			}
-		});
+		}); */
 
 		let content_page = parent.document.getElementById("content_page");
 		let game_page = content_page.appendChild(document.createElement('iframe'));
+
+		if (game_page.attachEvent) {
+			game_page.attachEvent("onload", () => {
+				setTimeout(() => {
+					closeLoadingMask();
+				}, 2000);
+			});
+		} else {
+			game_page.onload = () => {
+				setTimeout(() => {
+					closeLoadingMask();
+				}, 2000);
+			};
+		}
 
 		game_page.style.cssText = "width: 100%;height: 100%;background-color: white;";
 		game_page.id = "game_page";

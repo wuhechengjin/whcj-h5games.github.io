@@ -45,7 +45,7 @@ if (screen_horizontal) {
 if (pages != "") {
 	let onloadEvent = () => {
 		window.addEventListener('message', (event) => {
-			if (event.origin !== pages || !event.data.eventName) return;
+			if (pages.indexOf(event.origin) == -1 || !event.data.eventName) return;
 			switch (event.data.eventName) {
 				case 'closeLoading':
 					closeLoadingMask();
